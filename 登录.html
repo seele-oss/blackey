@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>登录页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-size: cover;
+            background-image: url("人物介绍/21.jpg");
+        }
+
+        .box {
+            position: relative;
+            width: 380px;
+            height: 520px; /* 调整为与注册页面相同的高度 */
+            background: #1c1c1c;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 520px;
+            background: linear-gradient(0deg, transparent, #45f3ff, #45f3ff);
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+        }
+
+        .box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 520px;
+            background: linear-gradient(0deg, #45f3ff, #45f3ff, #45f3ff);
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+            animation-delay: -3s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form {
+            position: absolute;
+            inset: 2px;
+            z-index: 10;
+            background: #28292d;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form h2 {
+            color: #45f3ff;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        .inputbox {
+            position: relative;
+            width: 300px;
+            margin-top: 25px;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        .inputbox input {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+        }
+
+        .inputbox span {
+            position: absolute;
+            left: 10px;
+            padding: 20px 10px 10px;
+            font-size: 1em;
+            color: #8f8f8f;
+            letter-spacing: 0.05em;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .inputbox input:valid ~ span,
+        .inputbox input:focus ~ span {
+            color: #45f3ff;
+            transform: translateY(-15px);
+            font-size: 0.8em;
+        }
+
+        .inputbox i {
+            display: none;
+        }
+
+        .inputbox input:focus {
+            border-color: #45f3ff;
+            box-shadow: 0 0 5px rgba(69, 243, 255, 0.5);
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 15px 0;
+            color: #8f8f8f;
+            font-size: 0.8em;
+        }
+
+        .links a {
+            color: #8f8f8f;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            color: #45f3ff;
+            text-decoration: underline;
+        }
+
+        .action-btns {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+            outline: none;
+            padding: 11px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #45f3ff;
+            color: #1c1c1c;
+        }
+
+        .btn-primary:hover {
+            background: #3ad8e6;
+            box-shadow: 0 0 10px rgba(69, 243, 255, 0.7);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #45f3ff;
+            color: #45f3ff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(69, 243, 255, 0.1);
+            box-shadow: 0 0 10px rgba(69, 243, 255, 0.5);
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bigbox">
+        <div class="box">
+            <div class="form">
+                <h2>登录</h2>
+                <div class="inputbox">
+                    <input type="text" required>
+                    <span>用户名</span>
+                    <i></i>
+                </div>
+                <div class="inputbox">
+                    <input type="password" required>
+                    <span>密码</span>
+                    <i></i>
+                </div>
+                
+                <div class="links">
+                    <a href="#">忘记密码?</a>
+                    <a href="注册.html">注册账号</a>
+                </div>
+                
+                <div class="action-btns">
+                    <input type="submit" class="btn btn-primary" value="登录">
+                    <a href="index.html" class="btn btn-secondary">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

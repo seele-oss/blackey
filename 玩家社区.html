@@ -1,0 +1,1129 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <title>玩家社区</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+		
+    body {
+    text-decoration: none;
+    background-color: black;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', sans-serif;
+    /* 新增背景样式 */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),url("img/p3.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+	#box {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+  
+}
+        #smallbox {
+            position: relative;
+            width: 60%;
+            height: 100vh;
+            margin: 0 auto;
+            padding-top: 80px;
+        }
+        .contain {
+            height: 40vh;
+            width: 100%;
+        }
+        .contain .slide {
+            position: absolute;
+            width: 60%;
+            height: 35vh;
+        }
+        #comcenter {
+            margin-left: 65%;
+            width: 35%;
+            height: 45vh;
+        }
+        #comcenter .imgbox img {
+            width: 100%;
+            height: 20vh;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        #comcenter .textbox {
+            color: white;
+            font-size: 15px;
+            width: 100%;
+            height: 25vh;
+            line-height: 1.6;
+            margin-top: 10px;
+            text-align: justify;
+        }
+        .contain .slide .item {
+            width: 25%;
+            height: 250px;
+            position: absolute;
+            top: 76%;
+            background-size: cover;
+            transition: 0.5s;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .contain .slide .item:nth-child(1) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .contain .slide .item:nth-child(2) {
+            left: 0;
+        }
+        .contain .slide .item:nth-child(3) {
+            left: 150px;
+        }
+        .contain .slide .item:nth-child(4) {
+            left: 300px;
+        }
+        .contain .slide .item:nth-child(5) {
+            left: 450px;
+        }
+        #content {
+            width: 100%;
+            height: 15vh;
+            margin-top: 50px;
+            position: absolute;
+        }
+        #content p {
+            font-size: 20px;
+            color: white;
+			bottom: 20px;
+        }
+        #content .total {
+            width: 65%;
+            height: 10vh;
+            background: rgba(255, 255, 255, 0.6);
+            display: flex;
+            position: absolute;
+            align-items: center;
+            border-radius: 8px;
+            padding: 0 20px;
+        }
+        #content h3 {
+            color: white;
+            padding: 10px;
+        }
+        #content .total p {
+            font-weight: 100;
+            margin-top: 0;
+            width: 40%;
+            height: 10px;
+        }
+        #content .recent p {
+            display: flex;
+            font-weight: 100;
+            margin-top: 0;
+        }
+        #content .recent {
+            width: 35%;
+            height: 10vh;
+            display: flex;
+            position: absolute;
+            left: 65%;
+            background: rgba(255, 255, 255, 0.4);
+            align-items: center;
+            border-radius: 8px;
+            padding: 0 20px;
+        }
+        #speak {
+            margin-top: 30vh;
+            width: 100%;
+            height: 90vh;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 12px;
+        }
+        #comment-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        #comment-form input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+
+        }
+        #comment-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        #comment-form input:focus {
+            border-color: #08f9ff;
+        }
+        #comment-form button {
+            padding: 12px 30px;
+            font-size: 16px;
+            color: black;
+            background: #08f9ff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(8, 249, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        #comment-form button:hover {
+            transform: scale(1.05);
+        }
+        #comment-form button:disabled {
+            opacity: 0.7;
+            transform: none;
+        }
+        #comments-list {
+            list-style: none;
+            margin-top: 10px;
+            height: calc(90vh - 80px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        #comments-list li {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #08f9ff;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        #comments-list li:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        #comments-list li::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 50%, rgba(8, 249, 255, 0.1) 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #comments-list li:hover::before {
+            opacity: 1;
+        }
+        #comments-list span {
+            color: #08f9ff;
+            margin-right: 8px;
+            font-weight: 500;
+        }
+        #comments-list p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-top: 4px;
+        }
+        #comments-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        #comments-list::-webkit-scrollbar-thumb {
+            background: #08f9ff;
+            border-radius: 4px;
+        }
+        #comments-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header:hover {
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 5px 30px rgba(8, 249, 255, 0.2);
+        }
+        .Logo {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(8, 249, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        .Logo:hover {
+            color: #08f9ff;
+            text-shadow: 0 0 20px rgba(8, 249, 255, 0.8);
+        }
+        .btn {
+            display: flex;
+            position: relative;
+        }
+        .btn a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            padding: 12px 20px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(8, 249, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        .btn a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #08f9ff;
+        }
+        .btn a:hover::before {
+            left: 100%;
+        }
+        #marker {
+        position: absolute;
+        bottom: 10px;
+        height: 3px;
+        background: #08f9ff;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px #08f9ff;
+        pointer-events: none;
+    }
+    .btn a:nth-child(1):hover ~ #marker {
+        left: 15px;
+        width: 60px;
+    }
+    .btn a:nth-child(2):hover ~ #marker {
+        left: 108px;
+        width: 80px;
+    }
+    .btn a:nth-child(3):hover ~ #marker {
+        left: 230px;
+        width: 80px;
+    }
+    .btn a:nth-child(4):hover ~ #marker {
+        left: 350px;
+        width: 80px;
+    }
+    .btn a:nth-child(5):hover ~ #marker {
+        left: 470px;
+        width: 80px;
+    }
+		
+        .user a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .login {
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+        .login:hover {
+            color: #08f9ff;
+            text-shadow: 0 0 10px rgba(8, 249, 255, 0.5);
+        }
+		.signup{
+			padding-left: 20px;
+		}
+          .signup:hover {
+           	color: #08f9ff;
+            text-shadow: 0 0 10px rgba(8, 249, 255, 0.5);
+        }
+        /* 个人中心专属样式 */
+        .profile {
+            border: 2px solid rgba(8, 249, 255, 0.5);
+            padding: 8px 20px ;
+            margin-left: 20px; /* 与注册按钮的间距 */
+            border-radius: 50px;
+          
+            align-items: center;
+          
+            transition: all 0.3s ease;
+        }
+        .profile:hover {
+            background: #08f9ff;
+            color: black;
+            border-color: #08f9ff;
+            box-shadow: 0 0 15px rgba(8, 249, 255, 0.8);
+        }
+	
+	
+        .mini-video {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            z-index: 999;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .close-btn:hover {
+            background: rgba(255,0,0,0.7);
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #08f9ff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* AI助手按钮样式 */
+        .ai-assistant-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #08f9ff, #4CAF50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(8, 249, 255, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .ai-assistant-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(8, 249, 255, 0.8);
+        }
+        .ai-assistant-btn i {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        /* AI助手对话框样式 */
+        .ai-assistant-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            max-height: 500px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            border: 1px solid #08f9ff;
+            box-shadow: 0 0 30px rgba(8, 249, 255, 0.3);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .ai-assistant-header {
+            padding: 15px;
+            background: rgba(8, 249, 255, 0.2);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(8, 249, 255, 0.3);
+        }
+        .ai-assistant-close {
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        .ai-assistant-close:hover {
+            color: #08f9ff;
+            transform: rotate(90deg);
+        }
+        .ai-assistant-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            color: white;
+        }
+        .ai-message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #08f9ff;
+        }
+        .ai-message.user {
+            background: rgba(8, 249, 255, 0.1);
+            border-left: 3px solid #4CAF50;
+            margin-left: 20%;
+        }
+        .ai-assistant-input {
+            display: flex;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(8, 249, 255, 0.3);
+        }
+        .ai-assistant-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(8, 249, 255, 0.3);
+            border-radius: 20px;
+            color: white;
+            outline: none;
+        }
+        .ai-assistant-input button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background: #08f9ff;
+            border: none;
+            border-radius: 20px;
+            color: black;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .ai-assistant-input button:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        .typing-indicator {
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .typing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #08f9ff;
+            margin-right: 4px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            #smallbox {
+                width: 80%;
+            }
+            .contain .slide {
+                width: 80%;
+            }
+            #comcenter {
+                margin-left: 60%;
+                width: 40%;
+            }
+        }
+        @media (max-width: 768px) {
+            #smallbox {
+                width: 95%;
+                padding-top: 70px;
+            }
+            .contain .slide {
+                width: 100%;
+                height: 30vh;
+            }
+            #comcenter {
+                margin-left: 0;
+                width: 100%;
+                margin-top: 32vh;
+            }
+            .contain .slide .item {
+                width: 20%;
+                height: 120px;
+            }
+            .contain .slide .item:nth-child(3) {
+                left: 120px;
+            }
+            .contain .slide .item:nth-child(4) {
+                left: 240px;
+            }
+            .contain .slide .item:nth-child(5) {
+                left: 360px;
+            }
+            #content .total,
+            #content .recent {
+                width: 100%;
+                position: relative;
+                left: 0;
+                margin-bottom: 10px;
+            }
+       
+   		 #speak {
+        position: relative;
+        top: 100px;
+        left: 10px;
+        margin-top: 50px;
+        margin-left: 20px;
+    	}
+
+            #comments-list {
+				
+                height: calc(70vh - 80px);
+            }
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+            .btn {
+                margin: 10px 0;
+            }
+            .user {
+                margin: 10px 0;
+            }
+            .ai-assistant-container {
+                width: 90%;
+                right: 5%;
+                bottom: 80px;
+            }
+        }
+		
+		/* 蓝色流光动态背景 */
+		@keyframes blue-glow {
+ 		 0% { box-shadow: 0 0 20px rgba(8, 249, 255, 0.3), 0 0 40px rgba(8, 249, 255, 0.2); }
+  		50% { box-shadow: 0 0 40px rgba(8, 249, 255, 0.6), 0 0 80px rgba(8, 249, 255, 0.4); }
+  		100% { box-shadow: 0 0 20px rgba(8, 249, 255, 0.3), 0 0 40px rgba(8, 249, 255, 0.2); }
+			}
+
+/* 评论区蓝色边框动态 */
+#comments-list li {
+  border-left-color: #08f9ff;
+  box-shadow: 0 2px 8px rgba(8, 249, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+#comments-list li:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 16px rgba(8, 249, 255, 0.2);
+}
+
+/* 按钮蓝色动态效果 */
+#comment-form button,
+.ai-assistant-input button {
+  background: linear-gradient(90deg, #08f9ff, #08c2ff);
+  color: #0a0a0a;
+  box-shadow: 0 0 10px rgba(8, 249, 255, 0.3);
+}
+
+#comment-form button:hover,
+.ai-assistant-input button:hover {
+  background: linear-gradient(90deg, #08c2ff, #08f9ff);
+  box-shadow: 0 0 20px rgba(8, 249, 255, 0.6);
+}
+	
+    #comcenter {
+    margin-left: 65%;
+    width: 35%;
+    height: 45vh;
+    /* 新增样式 */
+    background: linear-gradient(135deg, rgba(8, 249, 255, 0.1), rgba(8, 249, 255, 0.05)); /* 背景渐变 */
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0 0 20px rgba(8, 249, 255, 0.2); /* 阴影 */
+    padding: 20px; /* 内边距 */
+    transition: all 0.3s ease; /* 过渡效果 */
+}
+
+#comcenter:hover {
+    box-shadow: 0 0 30px rgba(8, 249, 255, 0.4); /* 悬停时阴影增强 */
+    transform: translateY(-5px); /* 悬停时向上移动 */
+}
+
+#comcenter .imgbox img {
+    width: 100%;
+    height: 20vh;
+    border-radius: 8px;
+    object-fit: cover;
+    /* 新增样式 */
+    box-shadow: 0 0 10px rgba(8, 249, 255, 0.2); /* 图片阴影 */
+    transition: all 0.3s ease; /* 过渡效果 */
+}
+
+#comcenter .imgbox img:hover {
+    box-shadow: 0 0 20px rgba(8, 249, 255, 0.4); /* 悬停时图片阴影增强 */
+    transform: scale(1.03); /* 悬停时图片放大 */
+}
+
+#comcenter .textbox {
+    color: white;
+    font-size: 15px;
+    width: 100%;
+    height: 25vh;
+    line-height: 1.6;
+    margin-top: 10px;
+    text-align: justify;
+    /* 新增样式 */
+    overflow-y: auto; /* 当内容超出时显示滚动条 */
+    padding-right: 10px; /* 为滚动条留出空间 */
+}
+
+#comcenter .textbox::-webkit-scrollbar {
+    width: 8px; /* 滚动条宽度 */
+}
+
+#comcenter .textbox::-webkit-scrollbar-thumb {
+    background: #08f9ff; /* 滚动条颜色 */
+    border-radius: 4px; /* 滚动条圆角 */
+}
+
+#comcenter .textbox::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* 滚动条轨道颜色 */
+}
+		
+#content {
+    width: 100%;
+    height: 15vh;
+    margin-top: 100px;
+    position: absolute;
+    /* 新增样式 */
+    background: rgba(8, 249, 255, 0.1); /* 背景半透明蓝色 */
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0 0 20px rgba(8, 249, 255, 0.2); /* 阴影 */
+    transition: all 0.3s ease; /* 过渡效果 */
+}
+
+#content:hover {
+    box-shadow: 0 0 30px rgba(8, 249, 255, 0.4); /* 悬停时阴影增强 */
+    transform: translateY(-5px); /* 悬停时向上移动 */
+}
+
+#content p {
+    font-size: 20px;
+    color: white;
+    /* 新增样式 */
+    margin-bottom: 10px; /* 段落底部间距 */
+}
+
+
+
+#content h3 {
+    color: white;
+    padding: 10px;
+    /* 新增样式 */
+    text-shadow: 0 0 10px rgba(8, 249, 255, 0.5); /* 文本阴影 */
+}
+    </style>
+</head>
+<body>
+    <section id="box">
+        <header>
+            <div class="Logo">黑神话：悟空</div>
+            <div class="btn">
+                <a href="index.html">首页</a>
+                <a href="西游文化.html">西游文化</a>
+                <a href="大圣觉醒.html">大圣觉醒</a>
+                <a href="玩家社区.html">玩家社区</a>
+				<a href="周边商城.html">周边商城</a>
+                <div id="marker"></div>
+            </div>
+            <div class="user">
+                <a class="signup" href="登录.html">登录</a>
+                <a class="login" href="注册.html">注册</a>
+				<a class="profile" href="个人中心.html">个人中心 </a>
+            </div>
+			
+        </header>
+<!--		蓝色流光条-->
+		<div class="blue-glow-bar" style="position: fixed; top: 0; left: -100%; width: 100%; height: 3px; background: #08f9ff; animation: blue-glow 3s infinite; z-index: 1001;"></div>
+		
+        <div id="smallbox">
+            <div class="contain">
+                <div class="slide">
+                    <video class="item" width="100%" height="100%" autoplay loop muted>
+                        <source src="video/movie480_vp9 (2).webm" type="video/webm">
+                    </video>
+                    <video class="item" width="100%" height="100%" poster="video/2.jpg" autoplay loop muted>
+                        <source src="video/movie480_vp9 (1).webm" type="video/webm">
+                    </video>
+                    <video class="item" width="100%" height="100%" poster="video/3.jpg" autoplay loop muted>
+                        <source src="video/movie480_vp9 (3).webm" type="video/webm">
+                    </video>
+                    <video class="item" width="100%" height="100%" poster="video/4.jpg" autoplay loop muted>
+                        <source src="video/movie480_vp9.webm" type="video/webm">
+                    </video>
+                    <video class="item" width="100%" height="100%" autoplay loop muted>
+                        <source src="video/movie480_vp9 (2).webm" type="video/webm">
+                    </video>
+                </div>
+                <div id="comcenter">
+                    <div class="imgbox"><img src="img/p1.jpg" alt="黑神话：悟空封面"></div>
+                    <div class="textbox">《黑神话：悟空》是一款以中国神话为背景的动作角色扮演游戏。你将扮演一位"天命人"，为了探寻昔日传说的真相，踏上一条充满危险与惊奇的西游之路。故事取材于中国古典小说"四大名著"之一的《西游记》。游戏以顶级的画面表现、丰富的战斗系统和深厚的文化底蕴，带你领略一个不一样的西游世界。</div>
+                </div>
+            </div>
+            <div id="content">
+                <p>黑神话：悟空的顾客评测</p>
+                <hr>
+                <div class="total">
+                    <h3>总体评测：</h3>
+                    <p>(811,544)篇评测</p>
+                </div>
+                <div class="recent">
+                    <h3>好评如潮</h3>
+                    <p>(355,933)篇评测</p>
+                </div>
+            </div>
+            <div id="speak">
+                <form id="comment-form">
+                    <input type="text" id="comment" name="comment" placeholder="请输入您的评论" autocomplete="off">
+                    <button type="submit" id="submit">提交评论</button>
+                </form>
+                <ul id="comments-list">
+                    <li>
+                        <span>孙悟空：</span>
+                        <p>"鸿蒙初开万物无性，欲破顽灵必先悟空。"</p>
+                    </li>
+                    <li>
+                        <span>猪八戒：</span>
+                        <p>猴哥，师傅又被妖精抓走了!</p>
+                    </li>
+                    <li>
+                        <span>唐僧：</span>
+                        <p>菩萨、妖精，总是一念。心生，种种魔生；心灭，种种魔灭。</p>
+                    </li>
+                    <li>
+                        <span>沙悟净：</span>
+                        <p>师父，放心吧，大师兄会来救我们的！</p>
+                    </li>
+                    <li>
+                        <span>玩家A：</span>
+                        <p>这游戏的画面简直绝了，每一帧都能当壁纸！</p>
+                    </li>
+                    <li>
+                        <span>玩家B：</span>
+                        <p>战斗系统太流畅了，打击感十足，玩得停不下来！</p>
+                    </li>
+                    <li>
+                        <span>玩家C：</span>
+                        <p>剧情深度很赞，对西游故事有新的诠释，爱了爱了！</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+	
+    <!-- AI助手按钮 -->
+    <div class="ai-assistant-btn" id="aiAssistantBtn">
+        <i>AI</i>
+    </div>
+    
+    <!-- AI助手对话框 -->
+    <div class="ai-assistant-container" id="aiAssistantContainer">
+        <div class="ai-assistant-header">
+            <span>悟空 AI助手</span>
+            <span class="ai-assistant-close" id="aiAssistantClose">×</span>
+        </div>
+        <div class="ai-assistant-messages" id="aiAssistantMessages">
+            <div class="ai-message">
+                欢迎来到《黑神话：悟空》社区！我是AI助手，可以回答您关于游戏的任何问题。请问有什么我可以帮助您的吗？
+            </div>
+        </div>
+        <div class="ai-assistant-input">
+            <input type="text" id="aiAssistantInput" placeholder="输入您的问题...">
+            <button id="aiAssistantSend">发送</button>
+        </div>
+    </div>
+	
+	
+
+    <script>
+		// 在<script>标签内添加，最好放在DOMContentLoaded事件监听器之前
+document.addEventListener('DOMContentLoaded', function() {
+    // 初始化粒子效果
+    
+});
+        // 视频控制逻辑
+        document.addEventListener('DOMContentLoaded', () => {
+            const videos = document.querySelectorAll("#box .contain video");
+            const videoPositions = {};
+            
+            videos.forEach(video => {
+                video.controls = false;
+                video.muted = true;
+                
+                video.addEventListener('click', function() {
+                    // 保存当前播放位置
+                    videoPositions[this.src] = this.currentTime;
+                    
+                    // 添加到迷你播放器
+                    this.classList.add('mini-video');
+                    
+                    // 添加关闭按钮
+                    if (!this.nextElementSibling?.classList?.contains('close-btn')) {
+                        const closeBtn = document.createElement('span');
+                        closeBtn.textContent = '×';
+                        closeBtn.className = 'close-btn';
+                        closeBtn.title = '关闭';
+                        
+                        this.parentNode.appendChild(closeBtn);
+                        
+                        closeBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const video = this.previousSibling;
+                            
+                            // 恢复原始状态
+                            video.classList.remove('mini-video');
+                            video.currentTime = videoPositions[video.src] || 0;
+                            
+                            // 移除关闭按钮
+                            this.parentNode.removeChild(this);
+                        });
+                    }
+                });
+            });
+            
+            // 自动播放第一个视频
+            if (videos.length > 0) {
+                videos[0].play().catch(e => console.log('自动播放被阻止:', e));
+            }
+        });
+
+        // 回车键提交表单
+        document.getElementById('comment').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('comment-form').dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // 评论提交处理
+        document.getElementById('comment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const commentInput = document.getElementById('comment');
+            const commentText = commentInput.value.trim();
+            
+            if (!commentText) {
+                alert('请输入评论内容');
+                return;
+            }
+            
+            // 添加到评论列表
+            const commentsList = document.getElementById('comments-list');
+            const newComment = document.createElement('li');
+            newComment.innerHTML = `<span>玩家：</span><p>${commentText}</p>`;
+            commentsList.prepend(newComment);
+            
+            // 重置输入框
+            commentInput.value = '';
+            
+            // 滚动到最新评论
+            newComment.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // DeepSeek API调用函数
+        async function callDeepSeekAPI(prompt) {
+            const apiKey = 'sk-9d9c47cfb14e4dba98a6d218347c30b2'; // 替换为你的DeepSeek API密钥
+            const endpoint = 'https://api.deepseek.com/v1/chat/completions'; // DeepSeek API端点
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-chat", // DeepSeek的模型名称
+                        messages: [
+                            {
+                                role: "system",
+                                content: `你是一个西游文化传承平台助手，多回答关于《黑神话：悟空》的问题。请遵循以下规则：
+		1. 保持回答有趣，富有中国神话色彩
+		2. 使用中文回答
+		3. 对游戏相关问题给出专业见解
+		4. 适当结合引用西游记原著内容,且有中国文化色彩`
+                            },
+                            {
+                                role: "user",
+                                content: prompt
+                            }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 800,
+                        stream: false // 非流式响应
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`DeepSeek API请求失败: ${response.status} - ${errorData.error?.message || '未知错误'}`);
+                }
+                
+                const data = await response.json();
+                return data.choices[0].message.content;
+            } catch (error) {
+                console.error('调用DeepSeek API出错:', error);
+                return `抱歉，AI服务暂时不可用。错误: ${error.message}`;
+            }
+        }
+
+        // 显示AI正在输入的视觉效果
+        function showTypingIndicator(commentElement) {
+            const typingIndicator = document.createElement('span');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.innerHTML = `
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+            `;
+            commentElement.querySelector('p').appendChild(typingIndicator);
+            return typingIndicator;
+        }
+
+        // AI助手功能
+        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
+        const aiAssistantContainer = document.getElementById('aiAssistantContainer');
+        const aiAssistantClose = document.getElementById('aiAssistantClose');
+        const aiAssistantMessages = document.getElementById('aiAssistantMessages');
+        const aiAssistantInput = document.getElementById('aiAssistantInput');
+        const aiAssistantSend = document.getElementById('aiAssistantSend');
+        
+        // 显示/隐藏AI助手对话框
+        aiAssistantBtn.addEventListener('click', () => {
+            aiAssistantContainer.style.display = aiAssistantContainer.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        aiAssistantClose.addEventListener('click', () => {
+            aiAssistantContainer.style.display = 'none';
+        });
+        
+        // 发送消息
+        async function sendAIMessage() {
+            const message = aiAssistantInput.value.trim();
+            if (!message) return;
+            
+            // 添加用户消息
+            const userMessage = document.createElement('div');
+            userMessage.className = 'ai-message user';
+            userMessage.textContent = message;
+            aiAssistantMessages.appendChild(userMessage);
+            
+            // 清空输入框
+            aiAssistantInput.value = '';
+            
+            // 添加AI正在输入指示器
+            const aiTyping = document.createElement('div');
+            aiTyping.className = 'ai-message';
+            aiTyping.innerHTML = '<span class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>';
+            aiAssistantMessages.appendChild(aiTyping);
+            
+            // 滚动到底部
+            aiAssistantMessages.scrollTop = aiAssistantMessages.scrollHeight;
+            
+            try {
+                // 调用DeepSeek API获取回复
+                const aiResponseText = await callDeepSeekAPI(message);
+                
+                // 移除输入指示器
+                aiTyping.remove();
+                
+                // 添加AI回复
+                const aiResponse = document.createElement('div');
+                aiResponse.className = 'ai-message';
+                aiResponse.textContent = aiResponseText;
+                aiAssistantMessages.appendChild(aiResponse);
+            } catch (error) {
+                // 移除输入指示器
+                aiTyping.remove();
+                
+                // 添加错误消息
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'ai-message';
+                errorMessage.textContent = '抱歉，获取AI回复时出错，请稍后再试。';
+                aiAssistantMessages.appendChild(errorMessage);
+            }
+            
+            // 滚动到底部
+            aiAssistantMessages.scrollTop = aiAssistantMessages.scrollHeight;
+        }
+        
+        // 点击发送按钮
+        aiAssistantSend.addEventListener('click', sendAIMessage);
+        
+        // 回车发送
+        aiAssistantInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                sendAIMessage();
+            }
+        });
+
+		// 蓝色流光条随机移动
+setInterval(() => {
+  const glowBar = document.querySelector('.blue-glow-bar');
+  glowBar.style.left = `-${Math.random() * 100}%`;
+}, 3000);
+
+// 灵猴图标浮动动画
+function floatAnimation() {
+  const icon = document.querySelector('.monkey-icon');
+  if (!icon) return;
+  
+  const y = icon.offsetTop + (Math.sin(Date.now() * 0.005) * 10);
+  icon.style.top = `${y}px`;
+}
+
+
+
+    </script>
+</body>
+</html>

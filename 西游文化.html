@@ -1,0 +1,884 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>西游文化</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		
+		body{
+			background-color:black;
+			box-sizing: border-box;
+			overflow-x: hidden;
+		}
+		
+		#box{
+			display:block;
+			background-image: url("video/10.jpg");
+			background-attachment: fixed;
+			background-size: cover;
+			background-repeat: no-repeat;
+			width:100%;
+			height:100vh;
+			position: relative;
+		}
+		
+		.contain{
+			position: absolute;
+			background-color: rgba(255,255,255,0.2);
+			backdrop-filter:blur(12px);
+			border:2px solid rgba(255,255,255,0.2);
+			box-shadow: inset 0 0 5px rgba(255,255,255,0.2);
+			border-radius: 30px;
+			display: flex;
+			align-items: center;
+			left:15%;
+			top:150px;
+			height:60vh;
+			width:70%;
+		}
+		@keyframes animation{
+			from{
+				opacity: 0;
+			}
+			to{opacity:1;}
+		}
+
+		
+		.contain .slide .item{
+			width:150px;
+			height:200px;
+			position: absolute;
+			top:90%;
+			border: 1px solid white;
+			transform:translate(0,-50%);
+			border-radius: 30px;
+			background: var(background-image);
+			background-position: 50% 50%;
+			display: inline-block;
+			background-size: cover;
+			transition: 0.5s;
+		}
+		 .contain .slide .item:nth-child(1),.slide .item:nth-child(2){
+			position: absolute;
+			top:0;
+			left:0;
+			transform:translate(0,0);
+			width:100%;
+			height:100%;
+			
+		}
+		.contain .slide .item:nth-child(3){
+			left:50%;
+		}
+		.contain .slide .item:nth-child(4){
+			left:calc(50% + 220px);
+		}
+		.contain .slide .item:nth-child(5){
+			left:calc(50% + 440px);
+		}
+		
+		.contain .slide .item:nth-child(n + 6){
+			left:calc(50% + 660px);
+			opacity: 0;
+		}
+
+		#box .contain .button{
+			width:100%;
+			position:absolute;
+			margin-top:-10%;
+			display: flex;
+			gap:20px;
+			display: none;
+		}
+		 .contain .button .prev{
+			position: absolute;
+			left:0;
+			width:50px;
+			height:50px;
+			background-color: rgba(255,255,255,0.2);
+			display: flex;
+			border-radius:100%;
+			align-items: center;
+			color: white;
+			font-size: 30px;
+		}
+		.contain .button .next{
+			position: absolute;
+			right:0;
+			width:50px;
+			height:50px;
+			background-color: rgba(255,255,255,0.2);
+			display: flex;
+			border-radius: 100%;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 30px;
+			transition: 0.5s;
+		}
+		.contain .button .next:hover,.contain .button .prev:hover{
+			cursor: pointer;
+			background-color: #ccc;
+		}
+		#box .contain:hover .button{
+			display: block;
+		}
+		
+		header {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header:hover {
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 5px 30px rgba(8, 249, 255, 0.2);
+        }
+
+        .Logo {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(8, 249, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .Logo:hover {
+            color: #08f9ff;
+            text-shadow: 0 0 20px rgba(8, 249, 255, 0.8);
+        }
+
+        .btn {
+            display: flex;
+            position: relative;
+        }
+
+        .btn a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            padding: 12px 20px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(8, 249, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #08f9ff;
+        }
+
+        .btn a:hover::before {
+            left: 100%;
+        }
+ #marker {
+        position: absolute;
+        bottom: 10px;
+        height: 3px;
+        background: #08f9ff;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px #08f9ff;
+        pointer-events: none;
+    }
+    .btn a:nth-child(1):hover ~ #marker {
+        left: 15px;
+        width: 60px;
+    }
+    .btn a:nth-child(2):hover ~ #marker {
+        left: 108px;
+        width: 80px;
+    }
+    .btn a:nth-child(3):hover ~ #marker {
+        left: 230px;
+        width: 80px;
+    }
+    .btn a:nth-child(4):hover ~ #marker {
+        left: 350px;
+        width: 80px;
+    }
+    .btn a:nth-child(5):hover ~ #marker {
+        left: 470px;
+        width: 80px;
+    }
+
+        .user a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .login {
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+
+        .login:hover {
+            color: #08f9ff;
+            text-shadow: 0 0 10px rgba(8, 249, 255, 0.5);
+        }
+
+        .signup {
+            border: 2px solid rgba(8, 249, 255, 0.5);
+            padding: 8px 20px;
+            margin-left: 16px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .signup:hover {
+            background: #08f9ff;
+            color: black;
+            border-color: #08f9ff;
+            box-shadow: 0 0 15px rgba(8, 249, 255, 0.8);
+        }
+		
+		#about {
+			width: 100%;
+			height: 100vh;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		#about .slide2 {
+			display: flex;
+			overflow-x: hidden;
+			height: 100%;
+			scroll-behavior: smooth;
+		}
+		
+		#about .slide2 img {
+			width: 100vw;
+			height: 100vh;
+			object-fit: cover;
+			flex-shrink: 0;
+		}
+		
+		/* 提示信息样式 */
+		.scroll-hint {
+			position: fixed;
+			bottom: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			color: white;
+			background: rgba(0,0,0,0.7);
+			padding: 15px 30px;
+			border-radius: 30px;
+			opacity: 0;
+			transition: opacity 0.3s;
+			pointer-events: none;
+			font-size: 18px;
+			text-align: center;
+			backdrop-filter: blur(5px);
+			border: 1px solid rgba(255,255,255,0.2);
+			box-shadow: 0 0 20px rgba(8, 249, 255, 0.3);
+		}
+		
+		.show-hint .scroll-hint {
+			opacity: 1;
+		}
+		
+		/* 激活水平滑动时的样式 */
+		.horizontal-mode #about .slide2 {
+			overflow-x: auto;
+			cursor: grab;
+		}
+		
+		.horizontal-mode #about .slide2:active {
+			cursor: grabbing;
+		}
+		
+		/* 模式提示 */
+		.mode-hint {
+			position: fixed;
+			top: 50%;
+			right: 30px;
+			transform: translateY(-50%);
+			color: white;
+			background: rgba(0,0,0,0.7);
+			padding: 15px;
+			border-radius: 10px;
+			font-size: 16px;
+			opacity: 0;
+			transition: opacity 0.3s;
+			pointer-events: none;
+			writing-mode: vertical-rl;
+			text-orientation: mixed;
+			backdrop-filter: blur(5px);
+			border: 1px solid rgba(255,255,255,0.2);
+		}
+		
+		.horizontal-mode .mode-hint {
+			opacity: 0.8;
+		}
+		
+		.contain .button .prev,
+	.contain .button .next {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: #08f9ff;
+    font-size: 36px;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(8, 249, 255, 0.3);
+    box-shadow: 0 0 15px rgba(8, 249, 255, 0.2);
+}
+.contain .button .prev {
+    left: 20px;
+}
+.contain .button .next {
+    right: 20px;
+}
+.contain .button .next:hover,
+.contain .button .prev:hover {
+    cursor: pointer;
+    background-color: rgba(8, 249, 255, 0.1);
+    border-color: #08f9ff;
+    box-shadow: 0 0 25px rgba(8, 249, 255, 0.5);
+    transform: scale(1.1);
+}
+
+/* 新增的内容卡片样式 */
+.item-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    background: rgba(0,0,0,0.6);
+    border-radius: 30px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    transform: translateY(20px);
+}
+
+/* 仅在大窗口悬停时显示文字 */
+.contain:hover .item:nth-child(1) .item-content,
+.contain:hover .item:nth-child(2) .item-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 小窗口悬停时不显示文字 */
+.contain .item:nth-child(3):hover .item-content,
+.contain .item:nth-child(4):hover .item-content,
+.contain .item:nth-child(5):hover .item-content {
+    opacity: 0 !important;
+}
+
+.item-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #08f9ff;
+    text-shadow: 0 0 15px rgba(8, 249, 255, 0.7);
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.item-desc {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 80%;
+}
+
+.item-stats {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    color: #08f9ff;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 蓝色光晕效果 */
+@keyframes blueGlow {
+    0% { box-shadow: 0 0 10px rgba(8, 249, 255, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(8, 249, 255, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(8, 249, 255, 0.3); }
+}
+
+.blue-highlight {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, rgba(8,249,255,0.1) 0%, transparent 70%);
+    animation: blueGlow 3s infinite;
+    border-radius: 30px;
+    pointer-events: none;
+}
+
+/* 增强后的提示信息样式 */
+.scroll-hint {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #08f9ff;
+    background: rgba(0,0,0,0.9);
+    padding: 20px 40px;
+    border-radius: 40px;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    font-size: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(8,249,255,0.5);
+    box-shadow: 0 0 30px rgba(8, 249, 255, 0.5);
+    animation: pulse 2s infinite;
+    z-index: 10000;
+}
+
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.1); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+.mode-hint {
+    position: fixed;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    color: #08f9ff;
+    background: rgba(0,0,0,0.9);
+    padding: 20px 25px;
+    border-radius: 15px;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    writing-mode: vertical-rl;
+    border: 2px solid rgba(8,249,255,0.5);
+    box-shadow: 0 0 30px rgba(8, 249, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mode-hint::after {
+    content: "→";
+    font-size: 24px;
+    animation: arrowSlide 1.5s infinite;
+}
+
+@keyframes arrowSlide {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { transform: translateY(20px); opacity: 1; }
+    100% { transform: translateY(40px); opacity: 0; }
+}
+	</style>
+</head>
+
+<body>
+	<!-- 提示信息 -->
+	<div class="scroll-hint">点击页面进入水平滑动模式<br>ESC键退出</div>
+	<div class="mode-hint">水平滑动模式中<br>ESC键退出</div>
+	
+	<section id="bigbox">
+		<section id="box">
+		<header>
+            <div class="Logo">黑神话：悟空</div>
+            <div class="btn">
+                <a href="index.html">首页</a>
+                <a href="西游文化.html">西游文化</a>
+                <a href="大圣觉醒.html">大圣觉醒</a>
+                <a href="玩家社区.html">玩家社区</a>
+				<a href="周边商城.html">周边商城</a>
+                <div id="marker"></div>
+            </div>
+            <div class="user">
+                <a class="signup" href="登录.html">登录</a>
+                <a class="login" href="注册.html">注册</a>
+            </div>
+        </header>
+			<div class="contain"> 
+				<div class="slide">
+					<!-- 孙悟空介绍 -->
+					<div class="item" style="background-image: url(人物介绍/29.jpg);">
+                        <div class="blue-highlight"></div>
+                        <div class="item-content">
+                            <h2 class="item-title">黑悟空</h2>
+                            <p class="item-desc">黑神话中的孙悟空，曾是齐天大圣，因反抗天庭被如来镇压五百年。取经后却发现真相残酷，重拾反叛之心，成为亦正亦邪的"黑悟空"。拥有超凡武艺和桀骜不驯的性格。</p>
+                            <div class="item-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">500</span>
+                                    <span class="stat-label">年镇压</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">齐天</span>
+                                    <span class="stat-label">大圣</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">斗战</span>
+                                    <span class="stat-label">胜佛</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 金箍棒介绍 -->
+					<div class="item" style="background-image: url(wukong/10.jpg);">
+                        <div class="blue-highlight"></div>
+                        <div class="item-content">
+                            <h2 class="item-title">如意金箍棒</h2>
+                            <p class="item-desc">定海神针铁，重一万三千五百斤，可随心意变化大小。黑悟空的主要武器，能大能小，能长能短，挥舞时蓝光四射，威力无穷。曾是太上老君炼制，大禹治水的定子。</p>
+                            <div class="item-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">13,500</span>
+                                    <span class="stat-label">斤重</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">∞</span>
+                                    <span class="stat-label">变化</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">定海</span>
+                                    <span class="stat-label">神威</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 紧箍咒介绍 -->
+					<div class="item" style="background-image: url(img/p17.jpg);">
+                        <div class="blue-highlight"></div>
+                        <div class="item-content">
+                            <h2 class="item-title">紧箍咒</h2>
+                            <p class="item-desc">观音赐予唐僧的法宝，用以约束孙悟空。在黑神话中，紧箍咒象征着天庭对悟空的束缚与控制。当咒语念动时，金箍紧缩，使悟空痛不欲生，但也激发了他更深的愤怒与力量。</p>
+                            <div class="item-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">禁锢</span>
+                                    <span class="stat-label">之力</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">痛苦</span>
+                                    <span class="stat-label">之源</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">反抗</span>
+                                    <span class="stat-label">之因</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 盔甲介绍 -->
+					<div class="item" style="background-image: url(wukong/4.jpg);">
+                        <div class="blue-highlight"></div>
+                        <div class="item-content">
+                            <h2 class="item-title">锁子黄金甲</h2>
+                            <p class="item-desc">黑悟空的战甲，由龙宫珍宝打造，金光闪烁却带有暗黑纹路。甲胄轻如鸿毛却坚不可摧，能抵御神兵利器的攻击。甲上刻有古老符文，随着战斗会逐渐显现出血色光芒。</p>
+                            <div class="item-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">龙宫</span>
+                                    <span class="stat-label">珍宝</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">符文</span>
+                                    <span class="stat-label">战甲</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">不坏</span>
+                                    <span class="stat-label">之身</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					<!-- 七十二变介绍 -->
+					<div class="item" style="background-image: url(img/p8.jpg);">
+                        <div class="blue-highlight"></div>
+                        <div class="item-content">
+                            <h2 class="item-title">七十二变</h2>
+                            <p class="item-desc">悟空的招牌神通，可变化万千形态。在黑神话中，这项能力更加黑暗强大，不仅能变化外形，还能模仿他人法术和气息。但过度使用会使悟空逐渐迷失自我，陷入疯狂。</p>
+                            <div class="item-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">72</span>
+                                    <span class="stat-label">般变化</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">千面</span>
+                                    <span class="stat-label">神通</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">疯狂</span>
+                                    <span class="stat-label">边缘</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="button">
+					<p class="prev">&lt;</p>
+					<p class="next">&gt;</p>
+				</div>
+			</div>
+		</section>
+		
+		<section id="about">
+			<div class="slide2">
+				<img src="wukong/1.jpg" alt="">
+				<img src="wukong/2.jpg" alt="">
+				<img src="wukong/3.jpg" alt="">
+				<img src="wukong/5.jpg" alt="">
+				<img src="wukong/6.jpg" alt="">
+				<img src="wukong/7.jpg" alt="">
+				<img src="wukong/8.jpg" alt="">
+				<img src="wukong/9.jpg" alt="">
+				<img src="wukong/10.jpg" alt="">
+				<img src="wukong/12.jpg" alt="">
+				<img src="wukong/13.jpg" alt="">
+				
+			</div>
+		</section>
+	</section>
+	
+	<script>
+		// 第一部分轮播图逻辑
+		var items = document.querySelectorAll("#box .contain .slide .item");
+		var buttons = document.querySelectorAll("#box .contain .button p");
+		var slides = document.querySelector("#box .contain .slide");
+		var box = document.querySelector("#box .contain");
+		
+		buttons[1].onclick = nextimg;
+		buttons[0].onclick = previmg;
+		
+		var zeroindex = 0;
+		function nextimg() {
+			var items = document.querySelectorAll("#box .contain .slide .item");
+            slides.appendChild(items[0]);
+			zeroindex--;
+			if(zeroindex < 0) zeroindex = items.length;
+		}
+		
+		function previmg() {
+			var items = document.querySelectorAll("#box .contain .slide .item");
+			var len = items.length;
+			slides.prepend(items[len-1]);
+			zeroindex--;
+			if(zeroindex > items.length) zeroindex = 0;
+		}
+	
+		var t = setInterval(nextimg, 5000);
+		box.onmouseover = function() {
+			clearInterval(t);
+		}
+		box.onmouseout = function() {
+			t = setInterval(nextimg, 5000);
+		}
+		
+		// 水平滑动控制逻辑
+		var aboutSection = document.getElementById('about');
+		var slide2 = document.querySelector('#about .slide2');
+		var scrollHint = document.querySelector('.scroll-hint');
+		var modeHint = document.querySelector('.mode-hint');
+		var isHorizontalMode = false;
+		var isAtBottom = false;
+		
+		// 检测是否滚动到底部
+		function checkScrollBottom() {
+			var scrollBottom = window.innerHeight + window.pageYOffset;
+			var documentHeight = document.documentElement.scrollHeight;
+			isAtBottom = scrollBottom >= documentHeight - 50;
+			
+			// 显示/隐藏提示
+			if(isAtBottom) {
+				document.body.classList.add('show-hint');
+			} else {
+				document.body.classList.remove('show-hint');
+				// 如果不在底部，退出水平模式
+				if(isHorizontalMode) {
+					exitHorizontalMode();
+				}
+			}
+		}
+		
+		// 进入水平滑动模式
+		function enterHorizontalMode() {
+			if(!isAtBottom) return;
+			
+			isHorizontalMode = true;
+			document.body.classList.add('horizontal-mode');
+			document.body.classList.remove('show-hint');
+			document.body.style.overflow = 'hidden'; // 禁止垂直滚动
+            
+            // 显示模式提示
+            showHintWithDuration('进入水平滑动模式 - 使用鼠标滚轮或拖动浏览', 3000);
+		}
+		
+		// 退出水平滑动模式
+		function exitHorizontalMode() {
+			isHorizontalMode = false;
+			document.body.classList.remove('horizontal-mode');
+			document.body.style.overflow = ''; // 恢复垂直滚动
+            
+            // 显示退出反馈
+            showHintWithDuration('已退出水平滑动模式', 2000);
+		}
+		
+		// 点击页面进入水平模式
+		document.addEventListener('click', function(e) {
+			if(isAtBottom && !isHorizontalMode) {
+				enterHorizontalMode();
+				e.preventDefault();
+			}
+		});
+		
+		// 鼠标滚轮控制 - 增加滑动幅度
+		document.addEventListener('wheel', function(e) {
+			if(!isHorizontalMode) return;
+			
+			// 阻止默认垂直滚动
+			e.preventDefault();
+			
+			// 水平滚动 - 增加滚动幅度(3倍)
+			slide2.scrollLeft += e.deltaY * 3;
+		}, { passive: false });
+		
+		// ESC键退出水平模式
+		document.addEventListener('keydown', function(e) {
+			if(e.key === 'Escape' && isHorizontalMode) {
+				exitHorizontalMode();
+				// 短暂显示底部提示
+				document.body.classList.add('show-hint');
+				setTimeout(() => {
+					document.body.classList.remove('show-hint');
+				}, 2000);
+			}
+		});
+		
+		// 滚动检测
+		window.addEventListener('scroll', checkScrollBottom);
+		window.addEventListener('resize', checkScrollBottom);
+		
+		// 初始检查
+		checkScrollBottom();
+        
+        // 增强的交互反馈
+        let hintTimeout;
+
+        function showHintWithDuration(message, duration = 2000) {
+            const hint = document.querySelector('.scroll-hint');
+            hint.textContent = message;
+            
+            // 强制重绘
+            void hint.offsetWidth;
+            
+            hint.style.opacity = '1';
+            
+            clearTimeout(hintTimeout);
+            hintTimeout = setTimeout(() => {
+                hint.style.opacity = '0';
+            }, duration);
+        }
+
+        // 添加触摸支持
+        let touchStartX = 0;
+        let isDragging = false;
+
+        slide2.addEventListener('touchstart', e => {
+            if(!isHorizontalMode) return;
+            touchStartX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        slide2.addEventListener('touchmove', e => {
+            if(!isDragging) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const delta = touch.clientX - touchStartX;
+            slide2.scrollLeft -= delta * 2;
+            touchStartX = touch.clientX;
+        });
+
+        slide2.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // 鼠标拖动支持
+        let mouseDown = false;
+        let startX;
+
+        slide2.addEventListener('mousedown', e => {
+            if(!isHorizontalMode) return;
+            mouseDown = true;
+            startX = e.pageX - slide2.offsetLeft;
+            slide2.style.cursor = 'grabbing';
+        });
+
+        slide2.addEventListener('mousemove', e => {
+            if(!mouseDown) return;
+            e.preventDefault();
+            const x = e.pageX - slide2.offsetLeft;
+            const walk = (x - startX) * 2;
+            slide2.scrollLeft -= walk;
+        });
+
+        document.addEventListener('mouseup', () => {
+            mouseDown = false;
+            slide2.style.cursor = 'grab';
+        });
+	</script>
+</body>
+</html>

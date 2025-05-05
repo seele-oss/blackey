@@ -1,0 +1,934 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>大圣觉醒</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+	<style>
+	/* 基础样式 */
+	:root {
+		--primary-color: #08f9ff;
+		--primary-dark: #06c6cc;
+		--primary-light: rgba(8, 249, 255, 0.2);
+		--text-color: #e0f7ff;
+		--bg-dark: rgba(255, 255, 255, 0.2);
+		--bg-light: rgba(20, 40, 60, 0.7);
+		--shadow-blue: 0 0 15px rgba(8, 249, 255, 0.5);
+		--transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	html {
+		scroll-behavior: smooth;
+	}
+	
+	body {
+    /* 原有样式 */
+    min-height: 100vh;
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--text-color);
+    overflow-x: hidden;
+    
+    /* 新增渐变背景 */
+    background: linear-gradient(135deg, #0a1e34 0%, #1f2a3a 70%, #2c3e50);
+    background-attachment: fixed; /* 固定背景不滚动 */
+}
+	
+	ul {
+		list-style-type: none;
+	}
+	
+	
+	/* 导航栏样式 */
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		height: 80px;
+		background: rgba(10, 20, 30, 0.8);
+		backdrop-filter: blur(10px);
+		position: fixed;
+		width: 100%;
+		top: 0;
+		z-index: 1000;
+		transition: var(--transition);
+		border-bottom: 1px solid rgba(8, 249, 255, 0.1);
+		box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+	}
+
+	header:hover {
+		background: rgba(15, 30, 45, 0.95);
+		box-shadow: 0 5px 30px rgba(8, 249, 255, 0.2);
+	}
+
+	.Logo {
+		color: white;
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 24px;
+		letter-spacing: 2px;
+		text-shadow: var(--shadow-blue);
+		transition: var(--transition);
+		position: relative;
+	}
+
+	.Logo::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: var(--primary-color);
+		transition: var(--transition);
+	}
+
+	.Logo:hover {
+		color: var(--primary-color);
+		text-shadow: 0 0 20px rgba(8, 249, 255, 0.8);
+	}
+
+	.Logo:hover::after {
+		width: 100%;
+	}
+
+	.btn {
+		display: flex;
+		position: relative;
+	}
+
+	.btn a {
+		color: white;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 16px;
+		padding: 12px 20px;
+		margin: 0 5px;
+		transition: var(--transition);
+		border-radius: 50px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.btn a::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+		transition: all 0.6s ease;
+	}
+
+	.btn a:hover {
+		background: rgba(255, 255, 255, 0.1);
+		color: var(--primary-color);
+		text-shadow: var(--shadow-blue);
+	}
+
+	.btn a:hover::before {
+		left: 100%;
+	}
+
+	 #marker {
+        position: absolute;
+        bottom: 10px;
+        height: 3px;
+        background: #08f9ff;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px #08f9ff;
+        pointer-events: none;
+    }
+    .btn a:nth-child(1):hover ~ #marker {
+        left: 15px;
+        width: 60px;
+    }
+    .btn a:nth-child(2):hover ~ #marker {
+        left: 108px;
+        width: 80px;
+    }
+    .btn a:nth-child(3):hover ~ #marker {
+        left: 230px;
+        width: 80px;
+    }
+    .btn a:nth-child(4):hover ~ #marker {
+        left: 350px;
+        width: 80px;
+    }
+    .btn a:nth-child(5):hover ~ #marker {
+        left: 470px;
+        width: 80px;
+    }
+
+	.user a {
+		color: white;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 16px;
+		transition: var(--transition);
+	}
+
+	.login {
+		padding: 8px 16px;
+		border-radius: 50px;
+	}
+
+	.login:hover {
+		color: var(--primary-color);
+		text-shadow: var(--shadow-blue);
+	}
+
+	.signup {
+		border: 2px solid var(--primary-light);
+		padding: 8px 20px;
+		margin-left: 16px;
+		border-radius: 50px;
+		transition: var(--transition);
+	}
+
+	.signup:hover {
+		background: var(--primary-color);
+		color: #0a0e17;
+		border-color: var(--primary-color);
+		box-shadow: var(--shadow-blue);
+	}
+	
+	/* 主内容区域 */
+	.main-content {
+		padding-top: 100px;
+		position: relative;
+	}
+	
+	.section-title {
+		text-align: center;
+		font-size: 2.5rem;
+		margin-bottom: 50px;
+		color: var(--primary-color);
+		text-shadow: 0 0 20px rgba(8, 249, 255, 0.5);
+		position: relative;
+		letter-spacing: 3px;
+	}
+	
+	.section-title::after {
+		content: '';
+		display: block;
+		width: 100px;
+		height: 3px;
+		background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+		margin: 15px auto;
+	}
+	
+	/* 角色展示部分 */
+	.character-section {
+		padding: 80px 0;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.character-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 30px;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	
+	.character-card {
+		position: relative;
+		height: 400px;
+		border-radius: 15px;
+		overflow: hidden;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+		transition: var(--transition);
+		transform: translateY(50px);
+		opacity: 0;
+		animation: fadeInUp 1s forwards;
+	}
+	
+	.character-card:nth-child(1) { animation-delay: 0.1s; }
+	.character-card:nth-child(2) { animation-delay: 0.2s; }
+	.character-card:nth-child(3) { animation-delay: 0.3s; }
+	.character-card:nth-child(4) { animation-delay: 0.4s; }
+	.character-card:nth-child(5) { animation-delay: 0.5s; }
+	.character-card:nth-child(6) { animation-delay: 0.6s; }
+	.character-card:nth-child(7) { animation-delay: 0.7s; }
+	.character-card:nth-child(8) { animation-delay: 0.8s; }
+	.character-card:nth-child(9) { animation-delay: 0.9s; }
+	
+	@keyframes fadeInUp {
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+	
+	.character-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: var(--transition);
+		filter: brightness(0.8);
+	}
+	
+	.character-info {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		padding: 20px;
+		background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+		transform: translateY(100%);
+		transition: var(--transition);
+	}
+	
+	.character-name {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--primary-color);
+		margin-bottom: 10px;
+		text-shadow: var(--shadow-blue);
+	}
+	
+	.character-desc {
+		font-size: 0.9rem;
+		line-height: 1.5;
+		opacity: 0;
+		transition: var(--transition);
+		transition-delay: 0.1s;
+	}
+	
+	.character-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 15px 40px rgba(8, 249, 255, 0.3);
+	}
+	
+	.character-card:hover .character-image {
+		filter: brightness(1);
+		transform: scale(1.05);
+	}
+	
+	.character-card:hover .character-info {
+		transform: translateY(0);
+	}
+	
+	.character-card:hover .character-desc {
+		opacity: 1;
+	}
+	.chapter-section::before {
+    /* 原有背景图基础上修改 */
+    opacity: 0.15; /* 更低的透明度 */
+    filter: blur(20px); /* 更强的高斯模糊 */
+    background-attachment: fixed; /* 固定背景不滚动 */
+    background-size: cover; /* 覆盖整个区域 */
+}
+
+	.character-card {
+    /* 原有样式基础上新增 */
+    border: 2px solid transparent; /* 透明边框，用于悬停时的视觉过渡 */
+    background: linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.02)); /* 渐变背景 */
+    overflow: hidden; /* 隐藏溢出的背景 */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6); /* 更强的阴影 */
+    transform: translateY(30px); /* 初始 translateY 增强动画效果 */
+}
+
+.character-card:hover {
+    /* 悬停时的边框和阴影 */
+    border-color: var(--primary-color); /* 蓝色边框 */
+    box-shadow: 0 0 30px rgba(8,249,255,0.5); /* 蓝色发光阴影 */
+}
+
+.character-image {
+    /* 图片圆角和滤镜优化 */
+    border-radius: 15px; /* 统一圆角 */
+    filter: brightness(0.9) contrast(1.1); /* 提升对比度和亮度 */
+    transition: all 0.4s var(--transition); /* 过渡效果 */
+}
+
+.character-card:hover .character-image {
+    /* 悬停时图片缩放和滤镜 */
+    transform: scale(1.03); /* 轻微放大 */
+    filter: brightness(1) contrast(1) drop-shadow(0 0 10px rgba(8,249,255,0.3)); /* 清晰化并添加投影 */
+}
+
+.character-info {
+    /* 信息层背景优化 */
+    background: linear-gradient(180deg, transparent 0%, rgba(10,20,30,0.9) 100%); /* 更陡峭的渐变 */
+    padding: 25px; /* 增加内边距 */
+}
+
+.character-name {
+    /* 角色名称样式 */
+    font-size: 1.6rem; /* 增大字体 */
+    text-shadow: 0 0 8px var(--primary-color); /* 发光文字阴影 */
+}
+
+.character-desc {
+    /* 描述文字优化 */
+    opacity: 0.8; /* 初始不透明度 */
+    line-height: 1.7; /* 更宽松的行高 */
+}
+	/* 章节介绍部分 */
+	.chapter-section {
+		padding: 80px 0;
+		background: rgba(10, 20, 30, 0.5);
+		position: relative;
+	}
+	
+	.chapter-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: url('人物介绍/20.jpg') center/cover no-repeat fixed;
+		opacity: 0.2;
+		z-index: -1;
+	}
+	
+	.chapter-container {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	
+	.chapter-item {
+		background: var(--bg-dark);
+		border-radius: 15px;
+		padding: 30px;
+		margin-bottom: 40px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+		border-left: 4px solid var(--primary-color);
+		transform: translateX(-50px);
+		opacity: 0;
+		transition: var(--transition);
+	}
+	
+	.chapter-item.visible {
+		transform: translateX(0);
+		opacity: 1;
+	}
+	
+	.chapter-title {
+		font-size: 1.8rem;
+		color: var(--primary-color);
+		margin-bottom: 20px;
+		position: relative;
+		display: inline-block;
+	}
+	
+	.chapter-title::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(90deg, var(--primary-color), transparent);
+	}
+	
+	.chapter-content {
+		font-size: 1rem;
+		line-height: 1.8;
+		margin-bottom: 20px;
+	}
+	
+	.chapter-highlight {
+		color: var(--primary-color);
+		font-weight: 500;
+	}
+	
+	.chapter-features {
+		margin-top: 20px;
+		padding-left: 20px;
+	}
+	
+	.chapter-features li {
+		margin-bottom: 10px;
+		position: relative;
+		list-style-type: none;
+	}
+	
+	.chapter-features li::before {
+		content: '✓';
+		color: var(--primary-color);
+		font-weight: bold;
+		display: inline-block;
+		width: 1em;
+		margin-left: -1em;
+	}
+		/* 阅读原著按钮样式 */
+.read-original-container {
+    text-align: center;
+    margin-top: 60px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.read-original-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 32px ;
+	margin-bottom: 30px;
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-color));
+    color: #0a0e17;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 5px 25px rgba(8, 249, 255, 0.4);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.read-original-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.6s ease;
+}
+
+.read-original-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(8, 249, 255, 0.6);
+}
+
+.read-original-btn:hover::before {
+    left: 100%;
+}
+
+.arrow-icon {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.read-original-btn:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+	
+	
+	
+	/* 页脚样式 */
+	footer {
+		background: var(--bg-dark);
+		padding: 30px 0;
+		text-align: center;
+		border-top: 1px solid rgba(8, 249, 255, 0.1);
+	}
+	
+	.footer-content {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	
+	.footer-links {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+	}
+	
+	.footer-links a {
+		color: var(--text-color);
+		margin: 0 15px;
+		text-decoration: none;
+		transition: var(--transition);
+	}
+	
+	.footer-links a:hover {
+		color: var(--primary-color);
+		text-shadow: var(--shadow-blue);
+	}
+	
+	.copyright {
+		font-size: 0.9rem;
+		color: rgba(224, 247, 255, 0.7);
+	}
+	
+	/* 响应式设计 */
+	@media (max-width: 992px) {
+		.character-grid {
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		}
+		
+		header {
+			flex-direction: column;
+			height: auto;
+			padding: 15px;
+		}
+		
+		.Logo {
+			margin-bottom: 15px;
+		}
+		
+		.btn {
+			margin-bottom: 15px;
+		}
+	}
+	
+	@media (max-width: 768px) {
+		.character-grid {
+			grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		}
+		
+		.section-title {
+			font-size: 2rem;
+		}
+		
+		.chapter-item {
+			padding: 20px;
+		}
+		
+		.chapter-title {
+			font-size: 1.5rem;
+		}
+	}
+	
+	@media (max-width: 576px) {
+		.character-grid {
+			grid-template-columns: 1fr;
+		}
+		
+		.btn a {
+			padding: 8px 12px;
+			font-size: 14px;
+		}
+		
+		.user a {
+			font-size: 14px;
+		}
+		
+		.signup {
+			padding: 6px 12px;
+		}
+	}
+	</style>
+</head>
+
+<body>
+
+	
+	
+	<!-- 导航栏 -->
+	<header>
+            <div class="Logo">黑神话：悟空</div>
+            <div class="btn">
+                <a href="index.html">首页</a>
+                <a href="西游文化.html">西游文化</a>
+                <a href="大圣觉醒.html">大圣觉醒</a>
+                <a href="玩家社区.html">玩家社区</a>
+				<a href="周边商城.html">周边商城</a>
+                <div id="marker"></div>
+            </div>
+            <div class="user">
+                 <a class="signup" href="登录.html">登录</a>
+                <a class="login" href="注册.html">注册</a>
+            </div>
+        </header>
+	
+	<!-- 主内容区域 -->
+	<main class="main-content">
+		<!-- 角色展示部分 -->
+		<section class="character-section">
+			<h2 class="section-title">主要角色</h2>
+			<div class="character-grid">
+				<div class="character-card">
+					<img src="角色/1.jpg" alt="虎先锋" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">虎先锋</h3>
+						<p class="character-desc">黄风怪麾下先锋，残暴嗜血，兽性压倒理智，战斗方式狂野。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/2.jpg" alt="二郎神" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">二郎神</h3>
+						<p class="character-desc">天庭战神，冷静高傲，法武双修,与悟空亦敌亦友，代表"体制内的叛逆者。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/4.jpg" alt="黑熊精" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">黑熊精</h3>
+						<p class="character-desc">粗犷外表下藏有文雅，贪宝但非恶徒，擅长突袭战术。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/5.jpg" alt="猪八戒" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">猪八戒</h3>
+						<p class="character-desc">颓废中带狡黠，九齿钉耙招式滑稽却致命。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/10.jpg" alt="黑风怪" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">多闻天王</h3>
+						<p class="character-desc">黑熊成精，擅使黑缨枪，力大无穷且防御惊人，占据黑风山为王。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/3.jpg" alt="牛魔王" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">杨戬法天象地</h3>
+						<p class="character-desc">平天大圣，火焰山之主，拥有变化神通和强大的火焰操控能力。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/7.jpg" alt="灵虚子" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">灵虚子</h3>
+						<p class="character-desc">原创角色，道法高深的神秘道士，似乎知晓许多西游背后的秘密。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/9.jpg" alt="二郎神" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">小黄龙</h3>
+						<p class="character-desc">天庭战神，使用三尖两刃刀，额间有天眼，能识破一切伪装。</p>
+					</div>
+				</div>
+				
+				<div class="character-card">
+					<img src="角色/6.jpg" alt="猪八戒" class="character-image">
+					<div class="character-info">
+						<h3 class="character-name">亢金龙</h3>
+						<p class="character-desc">前身为天蓬元帅，使用九齿钉耙，性格复杂多变，实力深藏不露。</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- 章节介绍部分 -->
+		<section class="chapter-section">
+			<h2 class="section-title">游戏章节</h2>
+			<div class="chapter-container">
+				<div class="chapter-item">
+					<h3 class="chapter-title">第一章·黑风劫起</h3>
+					<div class="chapter-content">
+						<span class="chapter-highlight">黑风山妖气弥漫</span>，昔日观音禅院已成妖魔巢穴。天命人追寻大圣眼根至此，遭遇黑熊精与其麾下妖众。
+					</div>
+					<ul class="chapter-features">
+						<li>黑风山全景探索 - 穿梭于破败禅院与妖洞之间</li>
+						<li>黑熊精Boss战 - 体验多阶段变身战斗</li>
+						<li>三口钟谜题 - 解开时间循环的秘密</li>
+						<li>金池长老往昔幻境 - 揭露黑风山沦陷真相</li>
+					</ul>
+				</div>
+				
+				<div class="chapter-item">
+					<h3 class="chapter-title">第二章·黄风迷踪</h3>
+					<div class="chapter-content">
+						<span class="chapter-highlight">黄风岭上飞沙走石</span>，黄风怪借灵吉菩萨定风珠之力兴风作浪，虎先锋率领妖兵阻挠天命人前进。
+					</div>
+					<ul class="chapter-features">
+						<li>动态沙暴系统 - 视线与移动受风沙影响</li>
+						<li>虎先锋突袭战 - 高速移动的猛虎敌人</li>
+						<li>定风珠夺取任务 - 破解黄风怪无敌状态</li>
+						<li>隐藏支线-流沙河谜题 - 与卷帘大将的邂逅</li>
+					</ul>
+				</div>
+				
+				<div class="chapter-item">
+					<h3 class="chapter-title">第三章·白骨情仇</h3>
+					<div class="chapter-content">
+						<span class="chapter-highlight">白骨洞中怨气凝结</span>，三打白骨精的真相逐渐浮出水面。看似邪恶的白骨夫人背后，隐藏着不为人知的西游秘辛。
+					</div>
+					<ul class="chapter-features">
+						<li>三重幻境解密 - 每层幻境对应不同战斗机制</li>
+						<li>白骨夫人三形态 - 美女/老妇/老翁三种战斗风格</li>
+						<li>唐僧幻象剧情 - 重现当年误会场景</li>
+						<li>隐藏彩蛋-八戒回忆杀 - 揭示取经队伍内部矛盾</li>
+					</ul>
+				</div>
+				
+				<div class="chapter-item">
+					<h3 class="chapter-title">第四章·火云焚天</h3>
+					<div class="chapter-content">
+						<span class="chapter-highlight">火焰山烈焰滔天</span>，牛魔王与铁扇公主各怀心思，红孩儿暗中观察，一场家庭伦理大戏在火海中上演。
+					</div>
+					<ul class="chapter-features">
+						<li>动态火焰地形 - 随时间变化的灼烧伤害</li>
+						<li>牛魔王/铁扇公主双线剧情 - 选择不同剧情分支</li>
+						<li>芭蕉扇获取任务链 - 智取或强夺的多元解法</li>
+						<li>红孩儿隐藏Boss战 - 触发条件苛刻的特别战斗</li>
+					</ul>
+				</div>
+				
+				<div class="chapter-item">
+					<h3 class="chapter-title">第五章·天庭诡局</h3>
+					<div class="chapter-content">
+						<span class="chapter-highlight">南天门云雾缭绕</span>，天庭众神面目难辨，机械化的天兵天将背后，是二郎神冷峻的审视目光。
+					</div>
+					<ul class="chapter-features">
+						<li>天兵傀儡战 - 组合式机械敌人</li>
+						<li>二郎神多阶段战 - 包括法天象地终极形态</li>
+						<li>蟠桃园秘密 - 时间静止区域的探索</li>
+						<li>真相碎片系统 - 收集关键记忆片段</li>
+					</ul>
+				</div>
+				
+				<div class="chapter-item">
+					<h3 class="chapter-title">终章·灵山无相</h3>
+					<div class="chapter-content">
+						<span class="chapter-highlight">大雷音寺佛光黯淡</span>，真经背后暗藏玄机。当悟空直面如来，玩家将做出影响结局的关键选择。
+					</div>
+					<ul class="chapter-features">
+						<li>三重结局分支 - 取决于前五章关键选择</li>
+						<li>如来/无天终极对决 - 动态战场转换</li>
+						<li>大圣真身觉醒 - 解锁全部神通</li>
+						<li>全收集奖励剧情 - 揭露西游最大秘密</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		
+		<div class="read-original-container">
+    <a href="https://xiyouji.5000yan.com/" class="read-original-btn" target="_blank">
+        立即阅读西游记原著小说
+        <span class="arrow-icon">→</span>
+    </a>
+</div>
+	</main>
+	
+	<!-- 页脚 -->
+	<footer>
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="#">关于我们</a>
+				<a href="#">联系我们</a>
+				<a href="#">隐私政策</a>
+				<a href="#">使用条款</a>
+				<a href="#">常见问题</a>
+			</div>
+			<p class="copyright">© 2023 黑神话：悟空 版权所有 | 游戏科学</p>
+		</div>
+	</footer>
+	
+	<script>
+	// 粒子背景效果
+	function createParticles() {
+		const particlesContainer = document.getElementById('particles-js');
+		const particleCount = 50;
+		
+		for (let i = 0; i < particleCount; i++) {
+			const particle = document.createElement('div');
+			particle.classList.add('particle');
+			
+			// 随机大小 (1-3px)
+			const size = Math.random() * 2 + 1;
+			particle.style.width = `${size}px`;
+			particle.style.height = `${size}px`;
+			
+			// 随机位置
+			particle.style.left = `${Math.random() * 100}vw`;
+			particle.style.top = `${Math.random() * 100}vh`;
+			
+			// 随机透明度
+			particle.style.opacity = Math.random() * 0.5 + 0.1;
+			
+			// 随机动画
+			const duration = Math.random() * 20 + 10;
+			particle.style.animation = `float ${duration}s linear infinite`;
+			
+			// 随机延迟
+			particle.style.animationDelay = `${Math.random() * 10}s`;
+			
+			particlesContainer.appendChild(particle);
+		}
+		
+		// 添加浮动动画
+		const style = document.createElement('style');
+		style.textContent = `
+			@keyframes float {
+				0% {
+					transform: translate(0, 0);
+				}
+				50% {
+					transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px);
+				}
+				100% {
+					transform: translate(0, 0);
+				}
+			}
+		`;
+		document.head.appendChild(style);
+	}
+	
+	// 导航栏标记动画
+	const marker = document.getElementById('marker');
+	document.querySelectorAll('.btn a').forEach(link => {
+		link.addEventListener('mouseenter', function() {
+			const index = Array.from(this.parentNode.children).indexOf(this);
+			const newLeft = this.offsetLeft + (this.offsetWidth - marker.offsetWidth)/2;
+			marker.style.left = `${newLeft}px`;
+		});
+	});
+	
+	// 滚动动画
+	function checkScroll() {
+		const chapters = document.querySelectorAll('.chapter-item');
+		const triggerBottom = window.innerHeight / 5 * 4;
+		
+		chapters.forEach((chapter, index) => {
+			const chapterTop = chapter.getBoundingClientRect().top;
+			if (chapterTop < triggerBottom) {
+				setTimeout(() => {
+					chapter.classList.add('visible');
+				}, index * 200);
+			}
+		});
+	}
+	
+	// 平滑滚动
+	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		anchor.addEventListener('click', function(e) {
+			e.preventDefault();
+			const targetId = this.getAttribute('href');
+			if (targetId === '#') return;
+			
+			const targetElement = document.querySelector(targetId);
+			if (targetElement) {
+				window.scrollTo({
+					top: targetElement.offsetTop - 80,
+					behavior: 'smooth'
+				});
+			}
+		});
+	});
+	
+	// 初始化
+	window.addEventListener('DOMContentLoaded', () => {
+		createParticles();
+		checkScroll(); // 初始检查
+	});
+	
+	window.addEventListener('scroll', checkScroll);
+	</script>
+</body>
+</html>
